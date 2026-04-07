@@ -80,7 +80,20 @@ export function CTASection() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                data-netlify="true"
+                name="demo-request"
+                method="POST"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="demo-request" />
+                <p className="hidden">
+                  <label>
+                    Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+                  </label>
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -89,6 +102,7 @@ export function CTASection() {
                     <input
                       type="text"
                       id="name"
+                      name="name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -103,6 +117,7 @@ export function CTASection() {
                     <input
                       type="text"
                       id="business"
+                      name="business"
                       required
                       value={formData.business}
                       onChange={(e) => setFormData({ ...formData, business: e.target.value })}
@@ -117,6 +132,7 @@ export function CTASection() {
                     <input
                       type="tel"
                       id="phone"
+                      name="phone"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -131,6 +147,7 @@ export function CTASection() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -144,6 +161,7 @@ export function CTASection() {
                   <input
                     type="checkbox"
                     id="kvkk"
+                    name="kvkkAccepted"
                     required
                     checked={formData.kvkkAccepted}
                     onChange={(e) => setFormData({ ...formData, kvkkAccepted: e.target.checked })}
