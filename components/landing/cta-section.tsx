@@ -85,7 +85,6 @@ export function CTASection() {
                 className="space-y-6"
                 data-netlify="true"
                 name="demo-request"
-                method="POST"
                 data-netlify-honeypot="bot-field"
               >
                 <input type="hidden" name="form-name" value="demo-request" />
