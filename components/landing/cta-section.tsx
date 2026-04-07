@@ -22,15 +22,23 @@ export function CTASection() {
     setErrorMessage("")
 
     try {
-      const response = await fetch("/api/demo-request", {
+      // Prepare form data for Netlify Forms
+      const formDataToSend = new URLSearchParams()
+      formDataToSend.append("form-name", "demo-request")
+      formDataToSend.append("name", formData.name)
+      formDataToSend.append("business", formData.business)
+      formDataToSend.append("phone", formData.phone)
+      formDataToSend.append("email", formData.email)
+      formDataToSend.append("kvkkAccepted", formData.kvkkAccepted ? "on" : "")
+
+      const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formDataToSend.toString(),
       })
 
       if (!response.ok) {
-        const data = (await response.json().catch(() => ({}))) as { error?: string }
-        throw new Error(data.error || "Talep gönderilirken bir hata oluştu.")
+        throw new Error("Talep gönderilirken bir hata oluştu.")
       }
 
       setIsSubmitted(true)
