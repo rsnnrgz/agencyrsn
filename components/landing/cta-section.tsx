@@ -10,6 +10,7 @@ export function CTASection() {
     business: "",
     phone: "",
     email: "",
+    kvkkAccepted: false,
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -38,6 +39,7 @@ export function CTASection() {
         business: "",
         phone: "",
         email: "",
+        kvkkAccepted: false,
       })
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Beklenmeyen bir hata oluştu.")
@@ -60,7 +62,7 @@ export function CTASection() {
                 Hemen <span className="text-primary">Ücretsiz Demo</span> Talep Edin
               </h2>
               <p className="text-muted-foreground max-w-xl mx-auto text-pretty">
-                30 gunluk ucretsiz deneme ile BeautyFlow CRM&apos;in isletmenize nasil fayda saglayacagini gorun. 
+                7 gunluk ucretsiz deneme ile BeautyFlow CRM&apos;in isletmenize nasil fayda saglayacagini gorun. 
                 Kredi kartı gerekmez.
               </p>
             </div>
@@ -82,7 +84,7 @@ export function CTASection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Adınız Soyadınız
+                      Adınız Soyadınız <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="text"
@@ -96,7 +98,7 @@ export function CTASection() {
                   </div>
                   <div>
                     <label htmlFor="business" className="block text-sm font-medium text-foreground mb-2">
-                      İşletme Adı
+                      İşletme Adı <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="text"
@@ -110,7 +112,7 @@ export function CTASection() {
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                      Telefon Numarası
+                      Telefon Numarası <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="tel"
@@ -124,7 +126,7 @@ export function CTASection() {
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      E-posta Adresi
+                      E-posta Adresi <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="email"
@@ -136,6 +138,24 @@ export function CTASection() {
                       placeholder="ornek@email.com"
                     />
                   </div>
+                </div>
+                
+                <div className="flex items-start gap-3 pt-2">
+                  <input
+                    type="checkbox"
+                    id="kvkk"
+                    required
+                    checked={formData.kvkkAccepted}
+                    onChange={(e) => setFormData({ ...formData, kvkkAccepted: e.target.checked })}
+                    className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                  />
+                  <label htmlFor="kvkk" className="text-sm text-muted-foreground">
+                    <span className="text-destructive">*</span>{" "}
+                    <a href="/kvkk" target="_blank" className="underline hover:text-primary">
+                      KVKK Aydınlatma Metni
+                    </a>{" "}
+                    kapsamında kişisel verilerimin işlenmesini kabul ediyorum.
+                  </label>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

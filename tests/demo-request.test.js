@@ -8,6 +8,7 @@ describe("validateDemoRequest", () => {
       business: "BeautyFlow",
       phone: "05551234567",
       email: "ada@example.com",
+      kvkkAccepted: true,
     })
 
     expect(result).toBeNull()
@@ -19,6 +20,7 @@ describe("validateDemoRequest", () => {
       business: "BeautyFlow",
       phone: "05551234567",
       email: "invalid-email",
+      kvkkAccepted: true,
     })
 
     expect(result).toBe("Gecerli bir e-posta adresi girin.")
