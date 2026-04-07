@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, Loader2 } from "lucide-react"
 
@@ -16,26 +16,23 @@ export function CTASection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
+  const formRef = useRef<HTMLFormElement>(null)
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!formRef.current) return
+
     setIsSubmitting(true)
     setErrorMessage("")
 
     try {
-      // Prepare form data for Netlify Forms
-      const formDataToSend = new URLSearchParams()
-      formDataToSend.append("form-name", "demo-request")
-      formDataToSend.append("bot-field", "")
-      formDataToSend.append("name", formData.name)
-      formDataToSend.append("business", formData.business)
-      formDataToSend.append("phone", formData.phone)
-      formDataToSend.append("email", formData.email)
-      formDataToSend.append("kvkkAccepted", formData.kvkkAccepted ? "on" : "")
+      // Use FormData directly from the form element for Netlify compatibility
+      const formDataToSend = new FormData(formRef.current)
 
       const response = await fetch(window.location.pathname, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formDataToSend.toString(),
+        headers: { "Accept": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formDataToSend as any).toString(),
       })
 
       if (!response.ok) {
@@ -90,6 +87,7 @@ export function CTASection() {
               </div>
             ) : (
               <form
+                ref={formRef}
                 onSubmit={handleSubmit}
                 className="space-y-6"
                 data-netlify="true"
