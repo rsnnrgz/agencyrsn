@@ -25,6 +25,7 @@ export function CTASection() {
       // Prepare form data for Netlify Forms
       const formDataToSend = new URLSearchParams()
       formDataToSend.append("form-name", "demo-request")
+      formDataToSend.append("bot-field", "")
       formDataToSend.append("name", formData.name)
       formDataToSend.append("business", formData.business)
       formDataToSend.append("phone", formData.phone)
