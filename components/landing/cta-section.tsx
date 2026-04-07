@@ -32,7 +32,7 @@ export function CTASection() {
       formDataToSend.append("email", formData.email)
       formDataToSend.append("kvkkAccepted", formData.kvkkAccepted ? "on" : "")
 
-      const response = await fetch("/", {
+      const response = await fetch(window.location.pathname, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: formDataToSend.toString(),
