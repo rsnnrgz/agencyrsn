@@ -28,15 +28,25 @@ export function CTASection() {
     try {
       // Use FormData directly from the form element for Netlify compatibility
       const formDataToSend = new FormData(formRef.current)
+      
+      // Convert FormData to URLSearchParams properly
+      const params = new URLSearchParams()
+      formDataToSend.forEach((value, key) => {
+        params.append(key, value.toString())
+      })
 
       const response = await fetch(window.location.pathname, {
         method: "POST",
-        headers: { "Accept": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formDataToSend as any).toString(),
+        headers: { 
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params.toString(),
       })
 
       if (!response.ok) {
-        throw new Error("Talep gönderilirken bir hata oluştu.")
+        const errorText = await response.text()
+        console.error("Form submission error:", response.status, errorText)
+        throw new Error(`Talep gönderilirken bir hata oluştu. (Status: ${response.status})`)
       }
 
       setIsSubmitted(true)
